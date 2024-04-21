@@ -1,7 +1,7 @@
 -- fifths
 -- hard autotune a voltage at input 1 to the major scale (or any of its modes)
--- modulate the postition of the current key on the circle of fifths at input 2
--- each of the four outputs is a perfect fifth apart, with all four honoring the inputs
+-- modulate the position of the current key on the circle of fifths at input 2
+-- each of the four outputs is a perfect fifth apart
 
 -- window boundaries for 12 equal-ish sized windows for -5 to +5V
 twelve_windows = {-4.97,-4,-3,-2,-1,0,1,2,3,4,4.97}
