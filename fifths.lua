@@ -1,7 +1,8 @@
 -- fifths
 -- hard autotune a voltage at input 1 to the major scale (or any of its modes)
 -- modulate the position of the current key on the circle of fifths at input 2
--- each of the four outputs is a fifth apart
+-- each of the the first 3 outputs is a fifth apart
+-- the fourth output is a 5V pulse every time the voltage at input 1 is quantized
 
 -- window boundaries for 13 equal-ish sized windows for -5 to +5V
 thirteen_windows = {-4.97,-4.5,-3.5,-2.5,-1.5,-0.5,0.5,1.5,2.5,3.5,4.5,4.97}
@@ -30,7 +31,7 @@ end
 -- choose output values based on input 1 and offsets based on fifths. 0V is assumed to be tuned to C3 (not mandatory!)
 input[1].scale = function(x) 
     local fifth = 7 / 12
-    local relative_to_c3 = x.volts + 4
+    local relative_to_c3 = x.volts + 2
     output[1].volts = relative_to_c3
     output[2].volts = relative_to_c3 + fifth
     output[3].volts = relative_to_c3 + fifth + fifth - 1 -- drop an octave to keep things under control
@@ -57,5 +58,6 @@ function init()
     --start in C major (ie. 0V at input 2)
     input[2].window(7)
 
+    -- set up output 4 pulses
     output[4].action = pulse(0.01, 5)
 end
