@@ -34,7 +34,7 @@ input[1].scale = function(x)
     output[1].volts = relative_to_c3
     output[2].volts = relative_to_c3 + fifth
     output[3].volts = relative_to_c3 + fifth + fifth - 1 -- drop an octave to keep things under control
-    output[4].volts = relative_to_c3 + fifth + fifth + fifth - 1 -- drop an octave to keep things under control
+    output[4]() -- pulse output 4 when tuning
 end
 
 -- when input 2 hops between windows, choose a new key from the circle of fifths
@@ -49,11 +49,13 @@ function init()
     --input 2 produces value 1 at -5V and value 12 at +5V
     input[2].mode('window',thirteen_windows,0.2)
 
-    --quantize all outputs to the chromatic scale in case our fifths get weird
-    for i=1,4 do
+    --quantize all tuned outputs to the chromatic scale in case our fifths get weird
+    for i=1,3 do
         output[i].scale({})
     end
 
     --start in C major (ie. 0V at input 2)
     input[2].window(7)
+
+    output[4].action = pulse(0.01, 5)
 end
