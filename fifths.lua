@@ -34,7 +34,7 @@ input[1].scale = function(x)
     local relative_to_c3 = x.volts + 2
     output[1].volts = relative_to_c3
     output[2].volts = relative_to_c3 + fifth
-    output[3].volts = relative_to_c3 + fifth + fifth - 1 -- drop an octave to keep things under control
+    output[3].volts = relative_to_c3 + fifth + fifth
     output[4]() -- pulse output 4 when tuning
 end
 
