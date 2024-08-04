@@ -34,6 +34,23 @@ function major_scale(tonic)
     return scale
 end
 
+--build a lydian dominant scale for any root note (tonic). This means that all modes of Melodic Minor are achievable
+function lydian_dominant_scale(tonic)
+    local scale = {}
+    local whole = 2
+    local half = 1
+    scale = {
+        tonic,
+        tonic + whole,
+        tonic + whole + whole,
+        tonic + whole + whole + whole,
+        tonic + whole + whole + whole + half,
+        tonic + whole + whole + whole + half + whole,
+        tonic + whole + whole + whole + half + whole + half
+    }
+    return scale
+end
+
 new_key = major_scale(0)
 
 -- choose output values based on input 1 and offsets. offsets are "ambiguous" thirds, meaning they are 
