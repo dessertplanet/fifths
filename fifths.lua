@@ -14,7 +14,7 @@ circle_of_fifths = {-6,1,-4,3,-2,5,0,-5,2,-3,4,-1,6}
 -- half-way between a minor third (3/12) and a major third (4/12) in 1V per Octave terms
 ambiguous_third = 7/24
 
--- enable last value store in case line 61 below is uncommented
+-- enable last value store in case line XX below is uncommented
 last_value = input[1]
 
 --build a major scale for any root note (tonic)
@@ -51,19 +51,35 @@ function lydian_dominant_scale(tonic)
     return scale
 end
 
-new_key = major_scale(0)
+function just_fifths_scale(tonic)
+    local scale = {}
+    local just_fifth = 1.5
+    scale = {
+        tonic,
+        tonic + just12(3/2)
+    }
+    return scale
+end
+
+new_major_key = major_scale(0)
+new_melodic_key = lydian_dominant_scale(0)
+new_fifths_key = just_fifths_scale(0)
 
 -- choose output values based on input 1 and offsets. offsets are "ambiguous" thirds, meaning they are 
 -- half way between a major and minor third, allowing the tuning and key changes to have maximum effect
 input[1].scale = function(x) 
 
-    --last value is only used if line 61 is uncommented to allow retuning upon input 2 changes
+    --last value is only used if line XX is uncommented to allow retuning upon input 2 changes
     last_value = x
 
     --update output tuning to new key (behaves like sample and hold of input 2 value)
-    for i=1,3 do
-        output[i].scale(new_key)
-    end
+    -- for i=1,3 do
+    --     output[i].scale(new_key)
+    -- end
+
+    output[1].scale(new_fifths_key)
+    output[2].scale(new_major_key)
+    output[3].scale(new_melodic_key)
 
     output[1].volts = x.volts
     output[2].volts = x.volts + ambiguous_third
@@ -73,7 +89,9 @@ end
 
 -- when input 2 hops between windows, choose a new key from the circle of fifths
 input[2].window = function(x) 
-    new_key = major_scale(circle_of_fifths[x])
+    new_major_key = major_scale(circle_of_fifths[x])
+    new_melodic_key = lydian_dominant_scale(circle_of_fifths[x])
+    new_fifths_key = just_fifths_scale(circle_of_fifths[x])
     -- Uncomment the line below to add retriggering/tuning upon input 2 window changes
     -- input[1].scale(last_value)
 end
