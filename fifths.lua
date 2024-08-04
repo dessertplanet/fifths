@@ -82,8 +82,8 @@ input[1].scale = function(x)
     output[3].scale(new_melodic_key)
 
     output[1].volts = x.volts
-    output[2].volts = x.volts + ambiguous_third
-    output[3].volts = x.volts + ambiguous_third + ambiguous_third
+    output[2].volts = x.volts
+    output[3].volts = x.volts
     output[4]() -- pulse output 4 when tuning
 end
 
