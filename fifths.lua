@@ -107,7 +107,6 @@ function init()
     --input 2 produces value 1 at -5V and value 12 at +5V
     input[2].mode('window',thirteen_windows,0.2)
 
-
     --start in C major (ie. 0V at input 2)
     input[2].window(7)
 end
