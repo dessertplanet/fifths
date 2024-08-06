@@ -1,8 +1,12 @@
 -- fifths
--- hard autotune a voltage at input 1 to the major scale (or any of its modes)
+-- hard autotune a voltage at input 1
 -- modulate the position of the current key on the circle of fifths at input 2
--- each of the the first 3 outputs is a fifth apart
--- the fourth output is a 5V pulse every time the voltage at input 1 is quantized
+-- each of the outputs has a different resulting scale
+-- output 1: root and fifth
+-- output 2: major scale and all its modes
+-- output 3: lydian dominant and all other modes of melodic minor
+-- output 4: lydian dominant again but constructed in just intervals using the 
+-- 8th through 14th partials of the harmonic series
 
 -- window boundaries for 13 equal-ish sized windows for -5 to +5V
 thirteen_windows = {-4.97,-4.5,-3.5,-2.5,-1.5,-0.5,0.5,1.5,2.5,3.5,4.5,4.97}
@@ -72,12 +76,8 @@ new_melodic_key = lydian_dominant_scale(0)
 new_fifths_key = just_fifths_scale(0)
 new_harmonic_series = harmonic_series(0)
 
--- choose output values based on input 1 and offsets. offsets are "ambiguous" thirds, meaning they are 
--- half way between a major and minor third, allowing the tuning and key changes to have maximum effect
+-- choose output values based on input 1 and the relevant scales
 input[1].scale = function(x) 
-
-    --last value is only used if line XX is uncommented to allow retuning upon input 2 changes
-    last_value = x
 
     output[1].scale(new_fifths_key)
     output[2].scale(new_major_key)
