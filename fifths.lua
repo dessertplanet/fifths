@@ -60,7 +60,7 @@ end
 
 function harmonic_series(tonic)
     local scale = {}
-    local series = {1,9/8,10/8,11/8,12/8,13/8,14/8}
+    local series = {8/8,9/8,10/8,11/8,12/8,13/8,14/8}
 
     scale = just12(series)
 
